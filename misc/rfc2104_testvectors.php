@@ -21,6 +21,10 @@
 
 /**
  * Test package by using the test vectors from the RFC 2104
+ * @author  Jesus M. Castagnetto
+ * @version 0.5
+ * @access  public
+ * @package Message
  */
 
 require_once 'Message/Message.php';
