@@ -50,7 +50,7 @@ class Message_Hash_Fallback extends Message_Common {/*{{{*/
 	 * @param mixed $input a scalar or a resource from which the data will be read
 	 * @param optional string $ser Serialization mode, one of 'none', 'serialize' or 'wddx'
      * @param optional string $enc Encoding mode of output, one of 'raw', 'hex' or 'base64'
-	 * @returns	mixed calculated hash on success, PEAR_Error object otherwise
+	 * @return	mixed calculated hash on success, PEAR_Error object otherwise
 	 * @access public
 	 */
 	function calc($input, $ser =  '', $enc = '') {/*{{{*/

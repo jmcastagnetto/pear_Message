@@ -148,7 +148,7 @@ class Message_Common {/*{{{*/
 	 * Reads the data from the input source
 	 *
 	 * @param mixed $input a scalar or a resource from which the data will be read
-	 * @returns string
+	 * @return string
 	 * @access public
 	 */
 	function getData($input) {/*{{{*/
