@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE package SYSTEM "../package.dtd">
+<!-- do not use the "Type" attribute here, that one is only for
+     generated package.xml files -->
+<package>
+  <name>Message</name>
+  <summary>Message hash and digest (HMAC) generation methods and classes</summary>
+  <description>
+   Simple wrappers for message hashing and HMAC signature generation
+   using the mhash functions.
+  </description>
+
+  <maintainers>
+    <maintainer>
+      <user>jmcastagnetto</user>
+      <name>Jesus M. Castagnetto</name>
+      <email>jmcastagnetto@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+
+  <release>
+    <license>PHP</license>
+    <version>0.0.2</version>
+    <date>2002-10-01</date>
+    <state>alpha</state>
+    <notes>
+    </notes>
+	<deps>
+	 <dep type="ext" rel="ge" version="0.8.16">mhash</dep>
+	</deps>
+    <filelist>
+      <dir name="/" baseinstalldir="Message">
+	  	<file role="php">Message.php</file>
+	  	<file role="php">common.php</file>
+        <dir name="Hash" role="php">
+          <file role="php">common.php</file>
+          <file role="php">ADLER32.php</file>
+          <file role="php">CRC32.php</file>
+          <file role="php">CRC32B.php</file>
+          <file role="php">GOST.php</file>
+          <file role="php">HAVAL128.php</file>
+          <file role="php">HAVAL160.php</file>
+          <file role="php">HAVAL192.php</file>
+          <file role="php">HAVAL224.php</file>
+          <file role="php">HAVAL256.php</file>
+          <file role="php">MD4.php</file>
+          <file role="php">MD5.php</file>
+          <file role="php">RIPEMD160.php</file>
+          <file role="php">SHA1.php</file>
+          <file role="php">SHA256.php</file>
+          <file role="php">TIGER.php</file>
+          <file role="php">TIGER128.php</file>
+          <file role="php">TIGER160.php</file>
+        </dir>
+        <dir name="HMAC" role="php">
+          <file role="php">common.php</file>
+          <file role="php">HAVAL128.php</file>
+          <file role="php">HAVAL160.php</file>
+          <file role="php">HAVAL192.php</file>
+          <file role="php">HAVAL224.php</file>
+          <file role="php">HAVAL256.php</file>
+          <file role="php">MD4.php</file>
+          <file role="php">MD5.php</file>
+          <file role="php">RIPEMD160.php</file>
+          <file role="php">SHA1.php</file>
+          <file role="php">SHA256.php</file>
+          <file role="php">TIGER.php</file>
+          <file role="php">TIGER128.php</file>
+          <file role="php">TIGER160.php</file>
+        </dir>
+		<dir name="misc" role="test">
+		 <file role="php">mkclasses.php</file>
+		 <file role="php">testmessage.php</file>
+		 <file role="php">rfc2104_testvectors.php</file>
+		 <file role="php">rfc2202_test.php</file>
+		 <file role="php">testfile.gz</file>
+		 <file role="php">hash_proto</file>
+		 <file role="php">hmac_proto</file>
+		</dir>
+      </dir>
+    </filelist>
+  </release>
+  <changelog>
+	<release>
+	</release>
+  </changelog>
+</package>
