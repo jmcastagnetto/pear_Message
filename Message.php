@@ -21,9 +21,38 @@
 
 require_once 'PEAR.php';
 
-class Message extends PEAR {
+/**
+ * Class implementing methods for message hashing and HMAC digest generation.
+ * It has static methods as well as factory methods. The factory methods
+ * return an object that implements a given hashing algorithm.
+ *
+ * Example of use:
+ *
+ * $hash = Message::calcHash('MD5', $data);
+ *
+ * $hmac = Message::createHMAC('SHA1', $key);
+ * $digest = $hmac->calc($data);
+ * 
+ * if ($hmac->validate($external_data, $digest)) { ... }
+ *
+ * @author	Jesus M. Castagnetto
+ * @version 0.1
+ * @access	public
+ * @package Message
+ */
+class Message {
 
-	function &hash($hash_name, $ser = '', $enc = '') {
+	/**
+	 * Factory method to create an object instance that can 
+	 * calculate the hash value of data using a given algorithm.
+	 *
+	 * @param	string	$hash_name	name of the hashing algorithm to use
+	 * @param	optional	string	$ser	data serialization method
+	 * @param	optional	string	$enc	data encoding method
+	 * @returns	object	a child class of Message_Hash_Common on success, a PEAR::Error object otherwise
+	 * @access	public
+	 */
+	function &hash($hash_name, $ser = '', $enc = '') {/*{{{*/
 		if (!extension_loaded('mhash')) {
 			return PEAR::raiseError('Could not find the mhash extension');
 		} else {
@@ -38,13 +67,30 @@ class Message extends PEAR {
 				return new $hash_class($ser, $enc);
 			}
 		}
-	}
+	}/*}}}*/
 
-	function &createHash($hash_name, $ser = '', $enc = '') {
+	/**
+	 * Alias of Message::hash()
+	 *
+	 * @access	public
+	 * @see		Message::hash()
+	 */
+	function &createHash($hash_name, $ser = '', $enc = '') {/*{{{*/
 		return Message::hash($hash_name, $ser, $enc);
-	}
+	}/*}}}*/
 
-	function &hmac($hash_name, $key, $ser = '', $enc = '') {
+	/**
+	 * Factory method to create and object instance that can
+	 * calculate the HMAC digest value of data using a given algorithm.
+	 *
+	 * @param	string	$hash_name	name of the hashing algorithm to use
+	 * @param	string	$key	the secret key used in the HMAC function	
+	 * @param	optional	string	$ser	data serialization method
+	 * @param	optional	string	$enc	data encoding method
+	 * @returns	object	a child class of Message_Hash_Common on success, a PEAR::Error object otherwise
+	 * @access	public
+	 */
+	function &hmac($hash_name, $key, $ser = '', $enc = '') {/*{{{*/
 		if (!extension_loaded('mhash')) {
 			return PEAR::raiseError('Could not find the mhash extension');
 		} else {
@@ -59,13 +105,30 @@ class Message extends PEAR {
 				return new $hmac($key, $ser, $enc);
 			}
 		}
-	}
+	}/*}}}*/
 
-	function &createHMAC($hash_name, $key, $ser = '', $enc = '') {
+	/**
+	 * Alias of Message::hmac()
+	 *
+	 * @access	public
+	 * @see		Message::hmac()
+	 */
+	function &createHMAC($hash_name, $key, $ser = '', $enc = '') {/*{{{*/
 		return Message::hmac($hash_name, $key, $ser, $enc);
-	}
+	}/*}}}*/
 
-	function calcHash($hash_name, $data, $ser = 'none', $enc = 'hex') {
+	/**
+	 * Static method to calculate the hash value of data using the given
+	 * algorithm.
+	 *
+	 * @param	string	$hash_name	name of the hashing algorithm to use
+	 * @param	string	$data	the input data
+	 * @param	optional	string	$ser	data serialization method
+	 * @param	optional	string	$enc	data encoding method
+	 * @returns	mixed	the hash on success, a PEAR::Error object otherwise
+	 * @access	public
+	 */
+	function calcHash($hash_name, $data, $ser = 'none', $enc = 'hex') {/*{{{*/
 		if (!extension_loaded('mhash')) {
 			return PEAR::raiseError('Could not find the mhash extension');
 		} else {
@@ -75,9 +138,21 @@ class Message extends PEAR {
 			else
 				return $hash->calc($data);
 		}
-	}
+	}/*}}}*/
 
-	function calcHMAC($hash_name, $data, $key, $ser = 'none',  $enc = 'hex') {
+	/**
+	 * Static method to calculate the HMAC digest value of data using the given
+	 * algorithm.
+	 *
+	 * @param	string	$hash_name	name of the hashing algorithm to use
+	 * @param	string	$data	the input data
+	 * @param	string	$key	the secret key used in the HMAC function	
+	 * @param	optional	string	$ser	data serialization method
+	 * @param	optional	string	$enc	data encoding method
+	 * @returns	mixed	the hash on success, a PEAR::Error object otherwise
+	 * @access	public
+	 */
+	function calcHMAC($hash_name, $data, $key, $ser = 'none',  $enc = 'hex') {/*{{{*/
 		if (!extension_loaded('mhash')) {
 			return PEAR::raiseError('Could not find the mhash extension');
 		} else {
@@ -87,8 +162,21 @@ class Message extends PEAR {
 			else
 				return $hmac->calc($data);
 		}
-	}
+	}/*}}}*/
 
+	/**
+	 * Static method to verify the HMAC digest value of data using the given
+	 * algorithm.
+	 *
+	 * @param	string	$hash_name	name of the hashing algorithm to use
+	 * @param	string	$data	the input data
+	 * @param	string	$signature	the input digest (signature) value
+	 * @param	string	$key	the secret key used in the HMAC function	
+	 * @param	optional	string	$ser	data serialization method
+	 * @param	optional	string	$enc	data encoding method
+	 * @returns	mixed	True/False on success, a PEAR::Error object otherwise
+	 * @access	public
+	 */
 	function validateHMAC($hash_name, $data, $signature, $key, $ser = '', $enc = '') {
 		$hmac = Message::calcHMAC($hash_name, $data, $key, $ser, $enc);
 		if (PEAR::isError($hmac))
@@ -97,6 +185,14 @@ class Message extends PEAR {
 			return (boolean) ($hmac == $signature);
 	}
 
+	/**
+	 * Private method to force the algorithm name into a value that
+	 * matches libmhash's constants
+	 *
+	 * @param	string	$hash_name	name of the hashing algorithm
+	 * @returns	string	a string the matches libmhash's constants pattern
+	 * @access	private
+	 */
 	function _mangle($hash_name) {
 		if (preg_match('/^MHASH_/', $hash_name)) {
 			$hash = $hash_name;
