@@ -49,7 +49,7 @@ class Message {/*{{{*/
 	 * @param	string	$hash_name	name of the hashing algorithm to use
 	 * @param	optional	string	$ser	data serialization method
 	 * @param	optional	string	$enc	data encoding method
-	 * @returns	object	a child class of Message_Hash_Common on success, a PEAR::Error object otherwise
+	 * @return	object	a child class of Message_Hash_Common on success, a PEAR::Error object otherwise
 	 * @access	public
 	 */
 	function &hash($hash_name, $ser = '', $enc = '') {/*{{{*/
@@ -94,7 +94,7 @@ class Message {/*{{{*/
 	 * @param	string	$key	the secret key used in the HMAC function	
 	 * @param	optional	string	$ser	data serialization method
 	 * @param	optional	string	$enc	data encoding method
-	 * @returns	object	a child class of Message_Hash_Common on success, a PEAR::Error object otherwise
+	 * @return	object	a child class of Message_Hash_Common on success, a PEAR::Error object otherwise
 	 * @access	public
 	 */
 	function &hmac($hash_name, $key, $ser = '', $enc = '') {/*{{{*/
@@ -144,7 +144,7 @@ class Message {/*{{{*/
 	 * @param	string	$data	the input data
 	 * @param	optional	string	$ser	data serialization method
 	 * @param	optional	string	$enc	data encoding method
-	 * @returns	mixed	the hash on success, a PEAR::Error object otherwise
+	 * @return	mixed	the hash on success, a PEAR::Error object otherwise
 	 * @access	public
 	 */
 	function calcHash($hash_name, $data, $ser = 'none', $enc = 'hex') {/*{{{*/
@@ -168,7 +168,7 @@ class Message {/*{{{*/
 	 * @param	string	$key	the secret key used in the HMAC function	
 	 * @param	optional	string	$ser	data serialization method
 	 * @param	optional	string	$enc	data encoding method
-	 * @returns	mixed	the hash on success, a PEAR::Error object otherwise
+	 * @return	mixed	the hash on success, a PEAR::Error object otherwise
 	 * @access	public
 	 */
 	function calcHMAC($hash_name, $data, $key, $ser = 'none',  $enc = 'hex') {/*{{{*/
@@ -193,7 +193,7 @@ class Message {/*{{{*/
 	 * @param	string	$key	the secret key used in the HMAC function	
 	 * @param	optional	string	$ser	data serialization method
 	 * @param	optional	string	$enc	data encoding method
-	 * @returns	mixed	True/False on success, a PEAR::Error object otherwise
+	 * @return	mixed	True/False on success, a PEAR::Error object otherwise
 	 * @access	public
 	 */
 	function validateHMAC($hash_name, $data, $signature, $key, $ser = '', $enc = '') {/*{{{*/
@@ -209,7 +209,7 @@ class Message {/*{{{*/
 	 * matches libmhash's constants
 	 *
 	 * @param	string	$hash_name	name of the hashing algorithm
-	 * @returns	string	a string the matches libmhash's constants pattern
+	 * @return	string	a string the matches libmhash's constants pattern
 	 * @access	private
 	 */
 	function _mangle($hash_name) {/*{{{*/

@@ -58,7 +58,7 @@ class Message_HMAC_Common extends Message_Common {/*{{{*/
 	 * Sets the key for HMAC digest generation
 	 *
 	 * @param string $key Key to be used for HMAC digest generation
-	 * @returns void
+	 * @return void
 	 * @access public
 	 */
 	function setKey($key) {/*{{{*/
@@ -71,7 +71,7 @@ class Message_HMAC_Common extends Message_Common {/*{{{*/
 	 * @param mixed $input a scalar or a resource from which the data will be read
 	 * @param optional string $ser Serialization mode, one of 'none', 'serialize' or 'wddx'
      * @param optional string $enc Encoding mode of output, one of 'raw', 'hex' or 'base64'
-	 * @returns	mixed HMAC digest on success, PEAR_Error object otherwise
+	 * @return	mixed HMAC digest on success, PEAR_Error object otherwise
 	 * @access public
 	 */
 	function calc($input, $ser = '', $enc = '') {/*{{{*/
@@ -99,7 +99,7 @@ class Message_HMAC_Common extends Message_Common {/*{{{*/
 	 * @param string $signature HMAC signature to be validated
 	 * @param optional string $ser Serialization mode, one of 'none', 'serialize' or 'wddx'
      * @param optional string $enc Encoding mode of output, one of 'raw', 'hex' or 'base64'
-	 * @returns	mixed True if signature is valid, False if invalid, PEAR_Error object if there was a problem reading the input source
+	 * @return	mixed True if signature is valid, False if invalid, PEAR_Error object if there was a problem reading the input source
 	 * @access public
 	 */
 	function validate($input, $signature, $ser = '', $enc = '') {/*{{{*/
