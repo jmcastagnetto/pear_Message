@@ -25,6 +25,7 @@
     <date>2002-10-01</date>
     <state>alpha</state>
     <notes>
+	 Under development
     </notes>
 	<deps>
 	 <dep type="ext" rel="ge" version="0.8.16">mhash</dep>
