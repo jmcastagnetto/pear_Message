@@ -22,7 +22,7 @@
 /**
  * Test package by using the test vectors from the RFC 2104
  * @author  Jesus M. Castagnetto
- * @version 0.5
+ * @version 0.6
  * @access  public
  * @package Message
  */
@@ -30,7 +30,6 @@
 require_once 'Message/Message.php';
 
 echo "Test Vectors from rfc 2104\n\n";
-
 echo "* Using static calls\n\n";
 
 $key1 = str_repeat(chr(0x0b), 16);

@@ -24,7 +24,7 @@ require_once 'Message/HMAC/common.php';
 /**
  * Wrapper class for HMAC signature calculation and validation using the HAVAL256 algorithm
  * @author  Jesus M. Castagnetto
- * @version 0.5
+ * @version 0.6
  * @access  public
  * @package Message
  */

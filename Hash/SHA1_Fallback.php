@@ -19,28 +19,27 @@
 // $Id$
 //
 
-require_once 'Message/HMAC/common.php';
+require_once 'Message/Hash/fallback.php';
 
 /**
- * Wrapper class for HMAC signature calculation and validation using the HAVAL192 algorithm
+ * Wrapper class for data hashing using the SHA1 algorithm
  * @author  Jesus M. Castagnetto
  * @version 0.6
  * @access  public
  * @package Message
  */
-class Message_HMAC_HAVAL192 extends Message_HMAC_Common {/*{{{*/
+class Message_Hash_SHA1_Fallback extends Message_Hash_Fallback {/*{{{*/
 
 	/**
-	 * Constructor for the class Message_HMAC_HAVAL192
+	 * Constructor for the class Message_Hash_SHA1_Fallback
 	 *
-	 * @param string $key The key to be used for HMAC digest generation
-	 * @param optional $ser Serialization mode, one of 'none', 'serialize' or 'wddx'
-	 * @param optional $enc Encoding mode of output, one of 'raw', 'hex' or 'base64'
-	 * @return object Message_HMAC_HAVAL192
+	 * @param optional string $ser Serialization mode, one of 'none', 'serialize' or 'wddx'
+	 * @param optional string $enc Encoding mode of output, one of 'raw', 'hex' or 'base64'
+	 * @return object Message_Hash_SHA1_Fallback
 	 * @access public
 	 */
-	function Message_HMAC_HAVAL192($key, $ser = '', $enc = '') {/*{{{*/
-		$this->Message_HMAC_Common('MHASH_HAVAL192', $key, $ser, $enc);
+	function Message_Hash_SHA1_Fallback($ser = '', $enc = '') {/*{{{*/
+		$this->Message_Hash_Fallback('SHA1', $ser, $enc);
 	}/*}}}*/
 }/*}}}*/
 

@@ -22,7 +22,7 @@
 /**
  * Utility script to generate the wrapper classes
  * @author  Jesus M. Castagnetto
- * @version 0.5
+ * @version 0.6
  * @access  public
  * @package Message
  */

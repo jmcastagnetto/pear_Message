@@ -21,15 +21,20 @@
 
   <release>
     <license>PHP</license>
-    <version>0.5</version>
+    <version>0.6</version>
     <date>2002-10-01</date>
     <state>beta</state>
     <notes>
-	 Initial release of package. Tests correctly agains the vectors listed in
-	 RFC 2104 and RFC 2202. 
+	 Added fallback classes and methods for MD5 and SHA1 hashing and HMAC
+	 generation. Only those two hashing algorithms can be used if mhash is
+	 not found. 
+	 
+	 The mhash extension is only needed when using hashing algorithms other
+	 than MD5 and SHA1, which are now implemented in the core of the language.
+
+	 Included scripts that use the fallback classes explicitely.
     </notes>
 	<deps>
-	 <dep type="ext" rel="ge" version="0.8.16">mhash</dep>
 	</deps>
     <filelist>
       <dir name="/" baseinstalldir="Message">
@@ -38,6 +43,7 @@
 		<file role='doc'>README</file>
         <dir name="Hash" role="php">
           <file role="php">common.php</file>
+          <file role="php">fallback.php</file>
           <file role="php">ADLER32.php</file>
           <file role="php">CRC32.php</file>
           <file role="php">CRC32B.php</file>
@@ -49,8 +55,10 @@
           <file role="php">HAVAL256.php</file>
           <file role="php">MD4.php</file>
           <file role="php">MD5.php</file>
+          <file role="php">MD5_Fallback.php</file>
           <file role="php">RIPEMD160.php</file>
           <file role="php">SHA1.php</file>
+          <file role="php">SHA1_Fallback.php</file>
           <file role="php">SHA256.php</file>
           <file role="php">TIGER.php</file>
           <file role="php">TIGER128.php</file>
@@ -58,6 +66,7 @@
         </dir>
         <dir name="HMAC" role="php">
           <file role="php">common.php</file>
+          <file role="php">fallback.php</file>
           <file role="php">HAVAL128.php</file>
           <file role="php">HAVAL160.php</file>
           <file role="php">HAVAL192.php</file>
@@ -65,8 +74,10 @@
           <file role="php">HAVAL256.php</file>
           <file role="php">MD4.php</file>
           <file role="php">MD5.php</file>
+          <file role="php">MD5_Fallback.php</file>
           <file role="php">RIPEMD160.php</file>
           <file role="php">SHA1.php</file>
+          <file role="php">SHA1_Fallback.php</file>
           <file role="php">SHA256.php</file>
           <file role="php">TIGER.php</file>
           <file role="php">TIGER128.php</file>
@@ -74,7 +85,9 @@
         </dir>
 		<dir name="misc" role="test">
 		 <file role="php">rfc2104_testvectors.php</file>
+		 <file role="php">rfc2104_testvectors_fallback.php</file>
 		 <file role="php">rfc2202_testvectors.php</file>
+		 <file role="php">rfc2202_testvectors_fallback.php</file>
 		 <file role="php">testmessage.php</file>
 		 <file role="php">testfile.gz</file>
 		</dir>
@@ -83,6 +96,17 @@
   </release>
   <changelog>
 	<release>
+     <license>PHP</license>
+      <version>0.5</version>
+       <date>2002-10-01</date>
+       <state>beta</state>
+       <notes>
+	    Initial release of package. Tests correctly agains the vectors listed in
+	    RFC 2104 and RFC 2202. 
+       </notes>
+	   <deps>
+	    <dep type="ext" rel="ge" version="0.8.16">mhash</dep>
+	   </deps>
 	</release>
   </changelog>
 </package>

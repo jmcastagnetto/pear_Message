@@ -24,7 +24,7 @@ require_once 'PEAR.php';
 /**
  * Class that implements the basic methods of the message hash and hmac classes
  * @author  Jesus M. Castagnetto
- * @version 0.5
+ * @version 0.6
  * @access  public
  * @package Message
  */

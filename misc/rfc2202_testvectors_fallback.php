@@ -27,7 +27,8 @@
  * @package Message
  */
 
-require_once 'Message/Message.php';
+require_once 'Message/HMAC/MD5_Fallback.php';
+require_once 'Message/HMAC/SHA1_Fallback.php';
 
 $key4 = '';
 foreach (range(0x01,0x19) as $hex)
@@ -113,8 +114,11 @@ $hmac_sha1_list = array (
 function run($digest_name, $testvector_list) {
 	$re = '/([[:alnum:] -])+/';
 	echo "\n*** HMAC $digest_name ***\n\n";
+	$hmac_class = 'Message_HMAC_'.$digest_name.'_Fallback';
+	$hmac = new $hmac_class('');
 	foreach ($testvector_list as $case=>$test) {
-		$digest = Message::calcHMAC($digest_name, $test['data'], $test['key']);
+		$hmac->setKey($test['key']);
+		$digest = $hmac->calc($test['data']);
 		$keylen = strlen($test['key']);
 		$datalen = strlen($test['data']);
 		$out = "test case: $case\n";

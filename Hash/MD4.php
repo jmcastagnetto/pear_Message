@@ -24,7 +24,7 @@ require_once 'Message/Hash/common.php';
 /**
  * Wrapper class for data hashing using the MD4 algorithm
  * @author  Jesus M. Castagnetto
- * @version 0.5
+ * @version 0.6
  * @access  public
  * @package Message
  */
