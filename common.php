@@ -107,6 +107,8 @@ class Message_Common {
 					break;
 			}
 			return $data;
+		} elseif (!is_scalar($input)) {
+			return PEAR::raiseError('Input data is not a scalar. Its type is: '.gettype($input));
 		} else {
 			return $input;
 		}
