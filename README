@@ -1,3 +1,5 @@
+$Id$
+
 Package of utility functions to do hash calculation and HMAC
 signature generation for data authentication.
 
@@ -9,5 +11,5 @@ See examples in the "misc" dir.
 Input data, can be a string or a resource created using
 fopen/fsocket/gzopen/bzopen/popen (or its stream equivalent).
 
-If the mhash extensio is detected then it will be used, otherwise
+If the mhash extension is detected then it will be used, otherwise
 it will fall back to using md5() and sha1() only.
