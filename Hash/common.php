@@ -22,14 +22,38 @@
 require_once 'PEAR.php';
 require_once 'Message/common.php';
 
-class Message_Hash_Common extends Message_Common {
+/**
+ * Class that implements the basic methods for the Hashing classes
+ * @author  Jesus M. Castagnetto
+ * @version 0.5
+ * @access  public
+ * @package Message
+ */
+class Message_Hash_Common extends Message_Common {/*{{{*/
 
-
-	function Message_Hash_Common($hash_name, $ser = '', $enc = '') {
+	/**
+	 * Constructor for base Hashing class
+	 *
+	 * @param string $hash_name Name of hashing function
+	 * @param optional string $ser Serialization mode, one of 'none', 'serialize' or 'wddx'
+     * @param optional string $enc Encoding mode of output, one of 'raw', 'hex' or 'base64'
+	 * @return object Message_Hash_Common
+	 * @access public
+	 */
+	function Message_Hash_Common($hash_name, $ser = '', $enc = '') {/*{{{*/
 		$this->Message_Common($hash_name, $ser, $enc);
-	}
+	}/*}}}*/
 
-	function calc($input, $ser =  '', $enc = '') {
+	/**
+	 * Calculates the hash of the input source, using the optional serialization and encoding
+	 * 
+	 * @param mixed $input a scalar or a resource from which the data will be read
+	 * @param optional string $ser Serialization mode, one of 'none', 'serialize' or 'wddx'
+     * @param optional string $enc Encoding mode of output, one of 'raw', 'hex' or 'base64'
+	 * @returns	mixed calculated hash on success, PEAR_Error object otherwise
+	 * @access public
+	 */
+	function calc($input, $ser =  '', $enc = '') {/*{{{*/
 		if (!extension_loaded('mhash')) {
 			return PEAR::raiseError('Extension mhash not found');
 		} else {
@@ -44,7 +68,7 @@ class Message_Hash_Common extends Message_Common {
 			$hash =  mhash(constant($this->hash_name), $data);
 			return $this->encode($hash);
 		}
-	}
-}
+	}/*}}}*/
+}/*}}}*/
 
 ?>

@@ -22,20 +22,59 @@
 require_once 'PEAR.php';
 require_once 'Message/common.php';
 
-class Message_HMAC_Common extends Message_Common {
+/**
+ * Class that implements the basic methods for the HMAC digest classes
+ * @author  Jesus M. Castagnetto
+ * @version 0.5
+ * @access  public
+ * @package Message
+ */
+class Message_HMAC_Common extends Message_Common {/*{{{*/
 
+	/**
+	 * Key to be used for HMAC digest generation
+	 *
+	 * @var	string
+	 * @access	private
+	 */
 	var $key;
 
-	function Message_HMAC_Common($hash_name, $key, $ser = '', $enc = '') {
+	/**
+	 * Constructor for base HMAC class
+	 *
+	 * @param string $hash_name Name of hashing function
+	 * @param string $key Key to be used for HMAC digest generation
+	 * @param optional string $ser Serialization mode, one of 'none', 'serialize' or 'wddx'
+     * @param optional string $enc Encoding mode of output, one of 'raw', 'hex' or 'base64'
+	 * @return object Message_HMAC_Common
+	 * @access public
+	 */
+	function Message_HMAC_Common($hash_name, $key, $ser = '', $enc = '') {/*{{{*/
 		$this->Message_Common($hash_name, $ser, $enc);
-		$this->key = $key;
-	}
+		$this->setKey($key);
+	}/*}}}*/
 
-	function setKey($key) {
+	/**
+	 * Sets the key for HMAC digest generation
+	 *
+	 * @param string $key Key to be used for HMAC digest generation
+	 * @returns void
+	 * @access public
+	 */
+	function setKey($key) {/*{{{*/
 		$this->key = $key;
-	}
+	}/*}}}*/
 
-	function calc($input, $ser = '', $enc = '') {
+	/**
+	 * Calculates HMAC digest from the input source, using the optional serialization and encoding
+	 * 
+	 * @param mixed $input a scalar or a resource from which the data will be read
+	 * @param optional string $ser Serialization mode, one of 'none', 'serialize' or 'wddx'
+     * @param optional string $enc Encoding mode of output, one of 'raw', 'hex' or 'base64'
+	 * @returns	mixed HMAC digest on success, PEAR_Error object otherwise
+	 * @access public
+	 */
+	function calc($input, $ser = '', $enc = '') {/*{{{*/
 		if (!extension_loaded('mhash')) {
 			return PEAR::raiseError('Extension mhash not found');
 		} else {
@@ -50,15 +89,26 @@ class Message_HMAC_Common extends Message_Common {
 			$sig = mhash(constant($this->hash_name), $data, $this->key);
 			return $this->encode($sig);
 		}
-	}
+	}/*}}}*/
 
-	function validate($input, $signature, $ser = '', $enc = '') {
+	/**
+	 * Validates an HMAC signature against the input source and the internal key, using the optional serialization and encoding
+
+	 * 
+	 * @param mixed $input a scalar or a resource from which the data will be read
+	 * @param string $signature HMAC signature to be validated
+	 * @param optional string $ser Serialization mode, one of 'none', 'serialize' or 'wddx'
+     * @param optional string $enc Encoding mode of output, one of 'raw', 'hex' or 'base64'
+	 * @returns	mixed True if signature is valid, False if invalid, PEAR_Error object if there was a problem reading the input source
+	 * @access public
+	 */
+	function validate($input, $signature, $ser = '', $enc = '') {/*{{{*/
 		$data = $this->calc($input, $ser, $enc);
 		if (PEAR::isError($data))
 			return $data;
 		else
 			return (boolean) ($data == $signature);
-	}
-}
+	}/*}}}*/
+}/*}}}*/
 
 ?>
