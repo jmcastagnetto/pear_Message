@@ -22,6 +22,10 @@
 
 /**
  * Example of use of PEAR::Message
+ * @author  Jesus M. Castagnetto
+ * @version 0.5
+ * @access  public
+ * @package Message
  */
 
 include_once 'Message/Message.php';

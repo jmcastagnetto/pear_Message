@@ -23,12 +23,25 @@ require_once 'Message/HMAC/common.php';
 
 /**
  * Wrapper class for HMAC signature calculation and validation using the TIGER algorithm
+ * @author  Jesus M. Castagnetto
+ * @version 0.5
+ * @access  public
+ * @package Message
  */
-class Message_HMAC_TIGER extends Message_HMAC_Common {
+class Message_HMAC_TIGER extends Message_HMAC_Common {/*{{{*/
 
-	function Message_HMAC_TIGER($key, $ser = '', $enc = '') {
+	/**
+	 * Constructor for the class Message_HMAC_TIGER
+	 *
+	 * @param string $key The key to be used for HMAC digest generation
+	 * @param optional $ser Serialization mode, one of 'none', 'serialize' or 'wddx'
+	 * @param optional $enc Encoding mode of output, one of 'raw', 'hex' or 'base64'
+	 * @return object Message_HMAC_TIGER
+	 * @access public
+	 */
+	function Message_HMAC_TIGER($key, $ser = '', $enc = '') {/*{{{*/
 		$this->Message_HMAC_Common('MHASH_TIGER', $key, $ser, $enc);
-	}
-}
+	}/*}}}*/
+}/*}}}*/
 
 ?>

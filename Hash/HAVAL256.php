@@ -23,12 +23,24 @@ require_once 'Message/Hash/common.php';
 
 /**
  * Wrapper class for data hashing using the HAVAL256 algorithm
+ * @author  Jesus M. Castagnetto
+ * @version 0.5
+ * @access  public
+ * @package Message
  */
-class Message_Hash_HAVAL256 extends Message_Hash_Common {
+class Message_Hash_HAVAL256 extends Message_Hash_Common {/*{{{*/
 
-	function Message_Hash_HAVAL256($ser = '', $enc = '') {
+	/**
+	 * Constructor for the class Message_Hash_HAVAL256
+	 *
+	 * @param optional string $ser Serialization mode, one of 'none', 'serialize' or 'wddx'
+	 * @param optional string $enc Encoding mode of output, one of 'raw', 'hex' or 'base64'
+	 * @return object Message_Hash_HAVAL256
+	 * @access public
+	 */
+	function Message_Hash_HAVAL256($ser = '', $enc = '') {/*{{{*/
 		$this->Message_Hash_Common('MHASH_HAVAL256', $ser, $enc);
-	}
-}
+	}/*}}}*/
+}/*}}}*/
 
 ?>

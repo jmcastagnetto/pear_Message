@@ -21,6 +21,10 @@
 
 /**
  * Utility script to generate the wrapper classes
+ * @author  Jesus M. Castagnetto
+ * @version 0.5
+ * @access  public
+ * @package Message
  */
 
 $cannot_hmac = array('CRC32', 'GOST', 'CRC32B', 'ADLER32');

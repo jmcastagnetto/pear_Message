@@ -22,37 +22,92 @@
 require_once 'PEAR.php';
 
 /**
- * Class the implements the basic methods of the message hash and hmac classes
+ * Class that implements the basic methods of the message hash and hmac classes
+ * @author  Jesus M. Castagnetto
+ * @version 0.5
+ * @access  public
+ * @package Message
  */
-class Message_Common {
+class Message_Common {/*{{{*/
 
+	/**
+	 * Name of the hashing function used
+	 *
+	 * @var	string
+	 * @access private
+	 */
 	var $hash_name;
+
+	/**
+	 * Serialization mode, one of 'none', 'serialize' (PHP serialization), or 'wddx'
+	 *
+	 * @var string
+	 * @access private
+	 */
 	var $serialization;
+
+	/**
+	 * Hash or HMAC value encoding, one of 'raw', 'hex', or 'base64'
+	 *
+	 * @var string
+	 * @access private
+	 */
 	var $encoding;
 
-	function Message_Common($hash_name, $ser = '', $enc = '') {
+	/**
+	 * Constructor. Expects hashing function name, and optional serialization and encoding modes.
+	 *
+	 * @param string $hash_name Hashing function name
+	 * @param optional string $ser Serialization method
+	 * @param optional string $enc Encoding mode of output
+	 * @return object Message_Common
+	 * @access public
+	 * @see Message_Common::setSerialization(), Message_Common::setEncoding()
+	 */
+	function Message_Common($hash_name, $ser = '', $enc = '') {/*{{{*/
 		$this->hash_name = $hash_name;
 		$this->setSerialization($ser);
 		$this->setEncoding($enc);
-	}
+	}/*}}}*/
 
-	function setSerialization($mode) {
+	/**
+	 * Sets the serialization mode. If an invalid mode, a default of 'none' is used.
+	 *
+	 * @param string $mode One of 'none', 'serialize' (PHP serialization'), or 'wddx'
+	 * @return void
+	 * @access public
+	 */
+	function setSerialization($mode) {/*{{{*/
 		$valid_modes = array ('none', 'serialize', 'wddx');
 		if ($mode && in_array($mode, $valid_modes))
 			$this->serialization = $mode;
 		else
 			$this->serialization = 'none';
-	}
+	}/*}}}*/
 
-	function setEncoding($mode) {
-		$valid_modes = array ('bin', 'hex', 'base64');
+	/**
+	 * Sets the output encoding mode. If an invalid mode, a default of 'hex' is used.
+	 *
+	 * @param string $mode One of 'raw', 'hex', or 'base64'
+	 * @return void
+	 * @access public
+	 */
+	function setEncoding($mode) {/*{{{*/
+		$valid_modes = array ('raw', 'hex', 'base64');
 		if ($mode && in_array($mode, $valid_modes))
-			$this->serialization = $mode;
+			$this->encoding = $mode;
 		else
-			$this->serialization = 'none';
-	}
+			$this->encoding = 'hex';
+	}/*}}}*/
 
-	function serialize($data) {
+	/**
+	 * Serialize the data using the current mode
+	 *
+	 * @param mixed $data Data to be serialized
+	 * @return string 
+	 * @access public
+	 */
+	function serialize($data) {/*{{{*/
 		switch ($this->serialization) {
 			case 'serialize' :
 				return serialize($data);
@@ -65,11 +120,18 @@ class Message_Common {
 				return $data;
 				break;
 		}
-	}
+	}/*}}}*/
 
-	function encode($data) {
+	/**
+	 * Encode the data using the current mode
+	 *
+	 * @param string $data Data to be encoded
+	 * @return string 
+	 * @access public
+	 */
+	function encode($data) {/*{{{*/
 		switch ($this->encoding) {
-			case 'bin' :
+			case 'raw' :
 				return $data;
 				break;
 			case 'base64' :
@@ -80,9 +142,16 @@ class Message_Common {
 				return bin2hex($data);
 				break;
 		}
-	}
+	}/*}}}*/
 
-	function getData($input) {
+	/**
+	 * Reads the data from the input source
+	 *
+	 * @param mixed $input a scalar or a resource from which the data will be read
+	 * @returns string
+	 * @access public
+	 */
+	function getData($input) {/*{{{*/
 		if (is_resource($input)) {
 			$data = '';
 			$restype = get_resource_type($input);
@@ -112,8 +181,8 @@ class Message_Common {
 		} else {
 			return $input;
 		}
-	}
+	}/*}}}*/
 
-}
+}/*}}}*/
 
 ?>

@@ -36,11 +36,11 @@ require_once 'PEAR.php';
  * if ($hmac->validate($external_data, $digest)) { ... }
  *
  * @author	Jesus M. Castagnetto
- * @version 0.1
+ * @version 0.5
  * @access	public
  * @package Message
  */
-class Message {
+class Message {/*{{{*/
 
 	/**
 	 * Factory method to create an object instance that can 
@@ -177,13 +177,13 @@ class Message {
 	 * @returns	mixed	True/False on success, a PEAR::Error object otherwise
 	 * @access	public
 	 */
-	function validateHMAC($hash_name, $data, $signature, $key, $ser = '', $enc = '') {
+	function validateHMAC($hash_name, $data, $signature, $key, $ser = '', $enc = '') {/*{{{*/
 		$hmac = Message::calcHMAC($hash_name, $data, $key, $ser, $enc);
 		if (PEAR::isError($hmac))
 			return $hmac;
 		else
 			return (boolean) ($hmac == $signature);
-	}
+	}/*}}}*/
 
 	/**
 	 * Private method to force the algorithm name into a value that
@@ -193,7 +193,7 @@ class Message {
 	 * @returns	string	a string the matches libmhash's constants pattern
 	 * @access	private
 	 */
-	function _mangle($hash_name) {
+	function _mangle($hash_name) {/*{{{*/
 		if (preg_match('/^MHASH_/', $hash_name)) {
 			$hash = $hash_name;
 		} else {
@@ -201,7 +201,8 @@ class Message {
 		}
 		list(,$hash_name) = explode('_', $hash);
 		return array($hash, $hash_name);
-	}
-}
+	}/*}}}*/
+
+}/*}}}*/
 
 ?>
