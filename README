@@ -1,0 +1,10 @@
+Package of utility functions to do hash calculation and HMAC
+signature generation for data authentication.
+
+See RFC 2104 (and examples in RFC 2202) for more details on HMAC
+
+The package is minimally documented, but usable.
+See examples in the "misc" dir.
+
+Input data, can be a string or a resource created using
+fopen/fsocket/gzopen/bzopen/popen (or its stream equivalent).
