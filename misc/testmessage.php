@@ -23,7 +23,7 @@
 /**
  * Example of use of PEAR::Message
  * @author  Jesus M. Castagnetto
- * @version 0.5
+ * @version 0.6
  * @access  public
  * @package Message
  */

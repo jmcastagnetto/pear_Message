@@ -19,29 +19,43 @@
 // $Id$
 //
 
-require_once 'Message/HMAC/common.php';
-
 /**
- * Wrapper class for HMAC signature calculation and validation using the HAVAL192 algorithm
+ * Test package by using the test vectors from the RFC 2104
  * @author  Jesus M. Castagnetto
  * @version 0.6
  * @access  public
  * @package Message
  */
-class Message_HMAC_HAVAL192 extends Message_HMAC_Common {/*{{{*/
 
-	/**
-	 * Constructor for the class Message_HMAC_HAVAL192
-	 *
-	 * @param string $key The key to be used for HMAC digest generation
-	 * @param optional $ser Serialization mode, one of 'none', 'serialize' or 'wddx'
-	 * @param optional $enc Encoding mode of output, one of 'raw', 'hex' or 'base64'
-	 * @return object Message_HMAC_HAVAL192
-	 * @access public
-	 */
-	function Message_HMAC_HAVAL192($key, $ser = '', $enc = '') {/*{{{*/
-		$this->Message_HMAC_Common('MHASH_HAVAL192', $key, $ser, $enc);
-	}/*}}}*/
-}/*}}}*/
+require_once 'Message/HMAC/MD5_Fallback.php';
+
+echo "Test Vectors from rfc 2104\n\n";
+echo "* Using fallback classes/methods\n\n";
+
+$md5 = new Message_HMAC_MD5_Fallback('');
+
+$key1 = str_repeat(chr(0x0b), 16);
+$data1 = "Hi There";
+$md5->setkey($key1);
+echo "rfc 2104 output: 0x9294727a3638bb1c13f48ef8158bfc9d\n";
+echo 'key: 0x'.str_repeat('0b', 16)."\n";
+echo "data: $data1\n";
+echo "md5 HMAC: ".$md5->calc($data1)."\n\n";
+
+$key2 = "Jefe";
+$data2 = "what do ya want for nothing?";
+$md5->setkey($key2);
+echo "rfc 2104 output: 0x750c783e6ab0b503eaa86e310a5db738\n";
+echo "key: $key2\n";
+echo "data: $data2\n";
+echo "md5 HMAC: ".$md5->calc($data2)."\n\n";
+
+$key3 = str_repeat(chr(0xAA), 16);
+$data3 = str_repeat(chr(0xDD), 50);
+$md5->setkey($key3);
+echo "rfc 2104 output: 0x56be34521d144c88dbb8c733f0e8b3f6\n";
+echo 'key: 0x'.str_repeat('AA', 16)."\n";
+echo 'data: 0x'.wordwrap(str_repeat('DD', 50),30,"\n",1)."\n";
+echo "md5 HMAC: ".$md5->calc($data3)."\n\n";
 
 ?>

@@ -29,7 +29,7 @@ require_once 'Message/common.php';
  * @access  public
  * @package Message
  */
-class Message_Hash_Common extends Message_Common {/*{{{*/
+class Message_Hash_Fallback extends Message_Common {/*{{{*/
 
 	/**
 	 * Constructor for base Hashing class
@@ -54,20 +54,21 @@ class Message_Hash_Common extends Message_Common {/*{{{*/
 	 * @access public
 	 */
 	function calc($input, $ser =  '', $enc = '') {/*{{{*/
-		if (!extension_loaded('mhash')) {
-			return PEAR::raiseError('Extension mhash not found');
-		} else {
-			$data = $this->getData($input);
-			if (PEAR::isError($data))
-				return $data;
-			if (!empty($ser))
-				$this->setSerialization($ser);
-			if (!empty($enc))
-				$this->setEncoding($enc);
-			$data = $this->serialize($data);
-			$hash =  mhash(constant($this->hash_name), $data);
-			return $this->encode($hash);
+		$data = $this->getData($input);
+		if (PEAR::isError($data))
+			return $data;
+		if (!empty($ser))
+			$this->setSerialization($ser);
+		if (!empty($enc))
+			$this->setEncoding($enc);
+		$data = $this->serialize($data);
+		$hashfunc = strtolower($this->hash_name);
+		if (!function_exists($hashfunc)) {
+			 return PEAR::raiseError("Fallback function $hashfunc undefined");
 		}
+		// emulate mhash and use binary strings
+		$hash = pack('H*',$hashfunc($data));
+		return $this->encode($hash);
 	}/*}}}*/
 }/*}}}*/
 

@@ -36,7 +36,7 @@ require_once 'PEAR.php';
  * if ($hmac->validate($external_data, $digest)) { ... }
  *
  * @author	Jesus M. Castagnetto
- * @version 0.5
+ * @version 0.6
  * @access	public
  * @package Message
  */
@@ -54,11 +54,18 @@ class Message {/*{{{*/
 	 */
 	function &hash($hash_name, $ser = '', $enc = '') {/*{{{*/
 		if (!extension_loaded('mhash')) {
-			return PEAR::raiseError('Could not find the mhash extension');
+			if (!Message::_inFallback($hash_name)) {
+				return PEAR::raiseError('Could not find the mhash extension, and '.
+							'could not fallback to PHP implementation');
+			} else {
+				$hash_name = strtoupper($hash_name);
+				include_once "Message/Hash/{$hash_name}_Fallback.php";
+				$hash_class = "Message_Hash_{$hash_name}_Fallback";
+				return new $hash_class($ser, $enc);
+			}
 		} else {
 			// mangle hash name to compare to mhash's constants
 			list($hash, $hash_name) = Message::_mangle($hash_name);
-			$valid_hash = array ('MHASH_MD5', 'MHASH_SHA1');
 			if (!defined($hash)) {
 				return PEAR::raiseError("Unsupported hash: $hash_name");
 			} else {
@@ -91,12 +98,24 @@ class Message {/*{{{*/
 	 * @access	public
 	 */
 	function &hmac($hash_name, $key, $ser = '', $enc = '') {/*{{{*/
+		$cannot_hmac = array('CRC32', 'GOST', 'CRC32B', 'ADLER32');
 		if (!extension_loaded('mhash')) {
-			return PEAR::raiseError('Could not find the mhash extension');
+			if (!Message::_inFallback($hash_name)) {
+				return PEAR::raiseError('Could not find the mhash extension, and '.
+							'could not fallback to PHP implementation');
+			} else {
+				list($hash, $hash_name) = Message::_mangle($hash_name);
+				if (in_array($hash_name, $cannot_hmac)) {
+					return PEAR::raiseError("Unsupported hmac: $hash_name");
+				} else {
+					include_once "Message/HMAC/{$hash_name}_Fallback.php";
+					$hmac = "Message_HMAC_{$hash_name}_Fallback";
+					return new $hmac($key, $ser, $enc);
+				}
+			}
 		} else {
 			// mangle hash name to compare to mhash's constants
 			list($hash, $hash_name) = Message::_mangle($hash_name);
-			$cannot_hmac = array('CRC32', 'GOST', 'CRC32B', 'ADLER32');
 			if (!defined($hash) || in_array($hash_name, $cannot_hmac)) {
 				return PEAR::raiseError("Unsupported hmac: $hash_name");
 			} else {
@@ -202,6 +221,10 @@ class Message {/*{{{*/
 		list(,$hash_name) = explode('_', $hash);
 		return array($hash, $hash_name);
 	}/*}}}*/
+
+	function _inFallback($hash_name) {
+		return in_array(strtolower($hash_name), array('md5', 'sha1'));
+	}
 
 }/*}}}*/
 

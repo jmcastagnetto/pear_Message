@@ -3,8 +3,11 @@ signature generation for data authentication.
 
 See RFC 2104 (and examples in RFC 2202) for more details on HMAC
 
-The package is minimally documented, but usable.
+The package is documented and usable.
 See examples in the "misc" dir.
 
 Input data, can be a string or a resource created using
 fopen/fsocket/gzopen/bzopen/popen (or its stream equivalent).
+
+If the mhash extensio is detected then it will be used, otherwise
+it will fall back to using md5() and sha1() only.

@@ -19,28 +19,28 @@
 // $Id$
 //
 
-require_once 'Message/HMAC/common.php';
+require_once 'Message/HMAC/fallback.php';
 
 /**
- * Wrapper class for HMAC signature calculation and validation using the HAVAL192 algorithm
+ * Wrapper class for HMAC signature calculation and validation using the MD5 algorithm
  * @author  Jesus M. Castagnetto
  * @version 0.6
  * @access  public
  * @package Message
  */
-class Message_HMAC_HAVAL192 extends Message_HMAC_Common {/*{{{*/
+class Message_HMAC_MD5_Fallback extends Message_HMAC_Fallback {/*{{{*/
 
 	/**
-	 * Constructor for the class Message_HMAC_HAVAL192
+	 * Constructor for the class Message_HMAC_MD5
 	 *
 	 * @param string $key The key to be used for HMAC digest generation
 	 * @param optional $ser Serialization mode, one of 'none', 'serialize' or 'wddx'
 	 * @param optional $enc Encoding mode of output, one of 'raw', 'hex' or 'base64'
-	 * @return object Message_HMAC_HAVAL192
+	 * @return object Message_HMAC_MD5_Fallback
 	 * @access public
 	 */
-	function Message_HMAC_HAVAL192($key, $ser = '', $enc = '') {/*{{{*/
-		$this->Message_HMAC_Common('MHASH_HAVAL192', $key, $ser, $enc);
+	function Message_HMAC_MD5_Fallback($key, $ser = '', $enc = '') {/*{{{*/
+		$this->Message_HMAC_Fallback('MD5', $key, $ser, $enc);
 	}/*}}}*/
 }/*}}}*/
 
