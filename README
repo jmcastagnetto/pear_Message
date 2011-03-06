@@ -1,4 +1,4 @@
-$Id$
+Message
 
 Package of utility functions to do hash calculation and HMAC
 signature generation for data authentication.
@@ -13,3 +13,8 @@ fopen/fsocket/gzopen/bzopen/popen (or its stream equivalent).
 
 If the mhash extension is detected then it will be used, otherwise
 it will fall back to using md5() and sha1() only.
+
+This is old code I wrote for PEAR. Originally it was tracked in CVS,
+then it was moved to SVN, and now I am importing it to git :-)
+
+-- Jesus M. Castagnetto
